@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { login } from "./api/main";
-import Header from "./header";
+
 
 
 const Login = () => {
@@ -34,7 +34,6 @@ const Login = () => {
 
     return (
         <>
-        <Header />
         <h2 id="signIn"> Sign In </h2>
         <form onSubmit={handleSubmit}>
            <label value={username} onChange={(e) => setUsername(e.target.value)}>

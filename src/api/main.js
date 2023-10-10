@@ -136,39 +136,92 @@ sortProducts("desc")
 
 
 //get all carts 
-
+export async function getAllCarts() {
+  try {
+    const response = await fetch(`${BASE_URL}/carts`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch carts. status: ${response.status}`);
+    }
+    const carts= await response.json();
+    return carts;
+  } catch (error) {
+    console.error("Error fetching carts:", error); 
+    throw error;
+  }
+}
 
 //single cart 
 //fetch('https://fakestoreapi.com/carts/5')
+export async function getCartById(cartId) {
+  try {
+    const respose = await fetch(`${BASE_URL}/carts/${cartId}`);
+    if (!respose.ok) {
+      throw new Error(`error fetching cart. status: ${respose.status}`);
+    } 
+    const cart = await respose.json(); 
+    return cart;
+  } catch (error) {
+    console.error(`error fetching cart with id ${cartId}`, error);
+    throw error;
+  }
+}
 
-
-//limit  cart result 
-//fetch('https://fakestoreapi.com/carts?limit=5')
-
-
-//sort cart results 
-//fetch('https://fakestoreapi.com/carts?sort=desc')
-
-
-//carts in date range
-//fetch('https://fakestoreapi.com/carts?startdate=2019-12-10&enddate=2020-10-10')
-
-
-//user cart
-//fetch('https://fakestoreapi.com/carts/user/2')
-
-
-//add new product to cart 
-//fetch('https://fakestoreapi.com/carts',{
- 
-//update cart product 
-//fetch('https://fakestoreapi.com/carts/7',{
-
-
-
+//create new cart
+export async function createCart(newCartData) {
+  try {
+    const response = await fetch(`${BASE_URL}/carts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newCartData),
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to create a new cart. Status: ${response.status}`);
+    }
+    const createdCart = await response.json();
+    return createdCart;
+  } catch (error) {
+    console.error("Error creating a new cart:", error);
+    throw error;
+  }
+}
+//update existing cart 
+export async function updateCart(cartId, updatedCartData) {
+  try {
+    const response = await fetch(`${BASE_URL}/carts/${cartId}`, {
+      method: "PUT", // Use the appropriate HTTP method for updating
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedCartData),
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to update cart. Status: ${response.status}`);
+    }
+    const updatedCart = await response.json();
+    return updatedCart;
+  } catch (error) {
+    console.error(`Error updating cart with ID ${cartId}:`, error);
+    throw error;
+  }
+}
 //delete a cart 
 //fetch('https://fakestoreapi.com/carts/6',{
-
+  export async function deleteCartById(cartId) {
+    try {
+      const response = await fetch(`${BASE_URL}/carts/${cartId}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to delete cart. Status: ${response.status}`);
+      }
+      // No need to return anything on successful deletion
+    } catch (error) {
+      console.error(`Error deleting cart with ID ${cartId}:`, error);
+      throw error;
+    }
+  }
 
 //get all users 
 //fetch('https://fakestoreapi.com/users')

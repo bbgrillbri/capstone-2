@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchProducts } from "./api/main.js";
-import Header from "./header.jsx";
+
+
 
 
 
@@ -32,6 +33,10 @@ const DisplayProducts = () => {
         getAllProducts();
       }, []);
 
+      const handleAddToCart = (product) => {
+        addToCart(product); 
+      };
+
     if (isLoading) {
         return <p>Loading...</p>
     }
@@ -42,14 +47,13 @@ const DisplayProducts = () => {
 
     return (
       <div>
-        <Header />
          <div>
         {products.map((product) => (
           <div key={product.id}>
             <img className="photo" src={product.image} alt={product.title} />
             <h2 className="title">{product.title}</h2>
             <h3 className="price">{product.price}</h3>
-            <h4 className="rating">{product.rating.rate}</h4>
+            <button onClick={() => handleAddToCart(product)}>Add To Cart</button>
           </div>
         ))}
       </div>

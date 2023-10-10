@@ -1,15 +1,14 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import { Robot } from "phosphor-react";
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
+import {createRoot} from 'react-dom/client';
 
-const rootElement = document.getElementById("root");
-const root = createRoot(rootElement);
+const root = createRoot(document.getElementById('root'));
 
 root.render(
-  <StrictMode>
-    <BrowserRouter>
-    <App />
-    </BrowserRouter>
-  </StrictMode>
+  <Router>
+      <App />
+  </Router>,
 );

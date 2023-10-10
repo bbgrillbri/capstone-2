@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { myData } from "./api/main";
 import { Link } from "react-router-dom";
-import Header from "./header";
+
 
 function Profile () {
     const [userData, setUserData] = useState(null);
@@ -27,7 +27,6 @@ function Profile () {
     }
     return (
         <div>
-            <Header />
             <h2>User Profile</h2>
             {userData ? (
                 <>

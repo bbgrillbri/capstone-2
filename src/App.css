@@ -18,3 +18,26 @@
     margin-left: 20px;
     font-size: 25px;
 }
+
+.photo {
+    max-width: 20%;
+    max-height: 20%;
+    margin-left: 40%;
+}
+
+.title {
+    font-family: 'Raleway', sans-serif;
+    font-family: 'Young Serif', serif;
+    font-size: medium;
+    text-align: center;
+}
+
+.price {
+    text-align: center;
+}
+
+.addToCart {
+    margin-left: 47%;
+    margin-bottom: 10%;
+}
+

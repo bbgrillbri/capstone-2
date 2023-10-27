@@ -34,6 +34,9 @@
 
 .price {
     text-align: center;
+    font-family: 'Raleway', sans-serif;
+    font-family: 'Young Serif', serif;
+    font-size: medium;
 }
 
 .addToCart {
@@ -41,3 +44,16 @@
     margin-bottom: 10%;
 }
 
+.quantity {
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+    font-family: 'Young Serif', serif;
+    font-size: medium;
+}
+
+.cartEmpty {
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+    font-family: 'Young Serif', serif;
+    font-size: medium;
+}

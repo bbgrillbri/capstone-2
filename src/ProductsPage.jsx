@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchProducts } from "./api/main.js";
-
-
+import { CartContext } from "./cart.jsx";
+import { useContext } from "react";
 
 
 
@@ -11,6 +11,7 @@ const DisplayProducts = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    
 
     useEffect(() => {
         async function getAllProducts() {
@@ -33,9 +34,7 @@ const DisplayProducts = () => {
         getAllProducts();
       }, []);
 
-      const handleAddToCart = (product) => {
-        addToCart(product); 
-      };
+      const { addToCart } = useContext(CartContext)
 
     if (isLoading) {
         return <p>Loading...</p>
@@ -53,7 +52,7 @@ const DisplayProducts = () => {
             <img className="photo" src={product.image} alt={product.title} />
             <h2 className="title">{product.title}</h2>
             <h3 className="price">{product.price}</h3>
-            <button className="addToCart" onClick={() => handleAddToCart(product)}>Add To Cart</button>
+            <button className="addToCart" onClick={() => addToCart(product)}>Add To Cart</button>
           </div>
         ))}
       </div>

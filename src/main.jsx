@@ -1,14 +1,18 @@
-import { Robot } from "phosphor-react";
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
+import { CartProvider } from "./cart";
+import { BrowserRouter } from "react-router-dom";
 import {createRoot} from 'react-dom/client';
 
-const root = createRoot(document.getElementById('root'));
+const root = createRoot(document.getElementById ('root'));
 
 root.render(
-  <Router>
+  <React.StrictMode>
+    <BrowserRouter>
+     <CartProvider>
       <App />
-  </Router>,
-);
+    </CartProvider>
+    </BrowserRouter>
+  </React.StrictMode>,
+)

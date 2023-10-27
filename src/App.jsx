@@ -6,20 +6,16 @@ import { Routes, Route } from "react-router-dom";
 import Header from "./header.jsx";
 import { useEffect, useState } from "react";
 import { fetchProducts } from "./api/main.js";
-import Cart from "./cart.jsx";
+import CartPage from "./cartPage.jsx";
+import { CartProvider } from "./cart.jsx";
+
 
 export default function App() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetchProducts()
-      .then((response) => {
-        const fetchedProducts = response.data.products;
-        setProducts(fetchedProducts);
-      })
-      .catch((error) => {
-        console.error("error fetching products", error);
-      });
+    const products = fetchProducts()
+    setProducts(products)
     }, []);
 
   return (
@@ -30,7 +26,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/cart" element={<Cart products={products} />} />
+        <Route path="/cart" element={<CartPage />} />
       </Routes>
     </div>
   );

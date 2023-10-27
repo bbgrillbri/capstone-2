@@ -1,103 +1,72 @@
-import React, { useState, useEffect } from "react";
-import {
-  getAllCarts,
-  createCart,
-  updateCart,
-  deleteCartById,
-} from "./api/main";
+import { createContext, useState, useEffect } from 'react'
 
-const Cart = () => {
-  const [carts, setCarts] = useState([]);
-  const [newCartItem, setNewCartItem] = useState({
-    productId: "",
-    quantity: 1,
-  });
+export const CartContext = createContext()
+
+export const CartProvider = ({ children }) => {
+  const [cartItems, setCartItems] = useState(localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [])
+
+  const addToCart = (item) => {
+    const isItemInCart = cartItems.find((cartItem) => cartItem.id === item.id);
+
+    if (isItemInCart) {
+      setCartItems(
+        cartItems.map((cartItem) =>
+          cartItem.id === item.id
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem
+        )
+      );
+    } else {
+      setCartItems([...cartItems, { ...item, quantity: 1 }]);
+    }
+    console.log (cartItems, "item added to cart")
+  };
+
+  const removeFromCart = (item) => {
+    const isItemInCart = cartItems.find((cartItem) => cartItem.id === item.id);
+    if (isItemInCart.quantity === 1) {
+      setCartItems(cartItems.filter((cartItem) => cartItem.id !== item.id));
+    } else {
+      setCartItems(
+        cartItems.map((cartItem) =>
+          cartItem.id === item.id
+            ? { ...cartItem, quantity: cartItem.quantity - 1 }
+            : cartItem
+        )
+      );
+    }
+  };
+
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
+  const getCartTotal = () => {
+    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  };
 
   useEffect(() => {
-    fetchCarts();
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  useEffect(() => {
+    const cartItems = localStorage.getItem("cartItems");
+    if (cartItems) {
+      setCartItems(JSON.parse(cartItems));
+    }
   }, []);
 
-  const fetchCarts = async () => {
-    try {
-      const data = await getAllCarts();
-      setCarts(data);
-    } catch (error) {
-      console.error("error fetching carts:", error);
-    }
-  };
-
-  const handleAddToCart = async () => {
-    try {
-      const createdCart = await createCart(newCartItem);
-      setCarts([...carts, createdCart]); // Fixed the typo here
-      setNewCartItem({
-        productId: "",
-        quantity: 1,
-      });
-    } catch (error) {
-      console.error("error adding to cart:", error);
-    }
-  };
-
-  const handleDeleteCartItem = async (cartId) => {
-    try {
-      await deleteCartById(cartId);
-      setCarts(carts.filter((cart) => cart._id !== cartId));
-    } catch (error) {
-      console.error(`error deleting cart item (${cartId}):`, error);
-    }
-  };
-
-  const handleUpdateQuantity = async (cartId, newQuantity) => {
-    try {
-      const updatedCart = await updateCart(cartId, { quantity: newQuantity });
-      const updatedCarts = carts.map((cart) =>
-        cart._id === cartId ? updatedCart : cart
-      );
-      setCarts(updatedCarts);
-    } catch (error) {
-      console.error(`error updating quantity for cart item (${cartId}):`, error);
-    }
-  };
-
   return (
-    <div>
-      <h1>Cart</h1>
-      <ul>
-        {carts.map((cart) => (
-          <li key={cart._id}>
-            Product ID: {cart.productId}, Quantity: {cart.quantity}
-            <button onClick={() => handleUpdateQuantity(cart._id, cart.quantity + 1)}>+</button>
-            <button onClick={() => handleUpdateQuantity(cart._id, cart.quantity - 1)}>-</button>
-            <button onClick={() => handleDeleteCartItem(cart._id)}>Remove</button>
-          </li>
-        ))}
-      </ul>
-      <div>
-        <label>
-          Product ID:
-          <input
-            type="text"
-            value={newCartItem.productId}
-            onChange={(e) =>
-              setNewCartItem({ ...newCartItem, productId: e.target.value })
-            }
-          />
-        </label>
-        <label>
-          Quantity:
-          <input
-            type="number"
-            value={newCartItem.quantity}
-            onChange={(e) =>
-              setNewCartItem({ ...newCartItem, quantity: e.target.value })
-            }
-          />
-        </label>
-        <button onClick={handleAddToCart}>Add to Cart</button>
-      </div>
-    </div>
+    <CartContext.Provider
+      value={{
+        cartItems,
+        addToCart,
+        removeFromCart,
+        clearCart,
+        getCartTotal,
+      }}
+    >
+      {children}
+    </CartContext.Provider>
   );
 };
-
-export default Cart;

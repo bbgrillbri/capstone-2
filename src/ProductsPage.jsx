@@ -6,13 +6,12 @@ import { useContext } from "react";
 
 
 
-
-
 const DisplayProducts = () => {
     const [products, setProducts] = useState([]); 
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    
 
     useEffect(() => {
         async function getAllProducts() {

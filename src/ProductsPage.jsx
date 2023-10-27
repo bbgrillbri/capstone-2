@@ -52,7 +52,7 @@ const DisplayProducts = () => {
             <img className="photo" src={product.image} alt={product.title} />
             <h2 className="title">{product.title}</h2>
             <h3 className="price">{product.price}</h3>
-            <button className="addToCart" onClick={() => addToCart(product)}>Add To Cart</button>
+            <button className="button" onClick={() => addToCart(product)}>Add To Cart</button>
           </div>
         ))}
       </div>

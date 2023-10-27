@@ -18,14 +18,16 @@ const CartPage = () => {
               <h2 className="title">{item.title}</h2>
               <p className="price">Price: {item.price}</p>
               <p className="quantity">Quantity: {item.quantity}</p>
-              <button onClick={() => removeFromCart(item)}>-</button>
-              <button onClick={() => addToCart(item)}>+</button>
+              <div className="cartbutton">
+              <button className="button" onClick={() => removeFromCart(item)}>-</button>
+              <button className="button1" onClick={() => addToCart(item)}>+</button>
+              </div>
             </div>
           </div>
         ))}
       </div>
-      <p>Total: ${getCartTotal()}</p>
-      <button onClick={clearCart}>Clear Cart</button>
+      <p className="total">Total: ${getCartTotal()}</p>
+      <button className="button" onClick={clearCart}>Clear Cart</button>
     </div>
   );
 };

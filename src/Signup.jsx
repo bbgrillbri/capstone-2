@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "./api/main";
-import Header from "./header";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -32,7 +31,7 @@ const Signup = () => {
 
   return (
     <>
-      <Header />
+
       <h2 id="signUpForm">Sign up</h2>
       <form onSubmit={handleSubmit}>
       <label className="name-input">
@@ -87,12 +86,8 @@ const Signup = () => {
             }
           />
         </label>
-
-       
-
-
         <br />
-        <button id="buttons" type="submit">
+        <button id="button" type="submit">
           Submit
         </button>
       </form>

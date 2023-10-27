@@ -7,14 +7,13 @@ import "./app.css"
 
 const Header = () =>  {
     return (
-        <header>
-            <div id="navbar">
+        <header className="header">
+            <div>
+                <h1 className="ShopTitle">Shop Name</h1>
                  <div id="links">
-                    <Link to="/login"><UserRectangle size={32}/></Link>
-                    <Link to="/"><ShoppingBag size={32}/></Link>
-                    <Link to="/cart"><ShoppingCart size={32} /></Link>
-                    
-
+                    <Link className="home" to="/login"><UserRectangle size={32}/></Link>
+                    <Link className="shopping" to="/"><ShoppingBag size={32}/></Link>
+                    <Link className="shoppinCart" to="/cart"><ShoppingCart size={32} /></Link>
             </div>
             </div>
            

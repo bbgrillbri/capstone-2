@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   MDBBtn,
   MDBContainer,
@@ -7,66 +7,81 @@ import {
   MDBCard,
   MDBCardBody,
   MDBInput,
-  MDBRadio
 }
 from 'mdb-react-ui-kit';
 
+import { useNavigate } from 'react-router-dom';
+import Login from './login';
 
 
 function Signup() {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    email: '',
+    password: '',
+  });
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const navigate = useNavigate(); 
+
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    // Save registration data in localStorage
+    localStorage.setItem('userData', JSON.stringify(formData));
+
+    console.log('Registration data saved:', formData);
+  };
+
   return (
     <MDBContainer fluid>
-
       <MDBRow className='justify-content-center align-items-center m-5'>
-
         <MDBCard>
           <MDBCardBody className='px-4'>
-
             <h3 className="fw-bold mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-
-            <MDBRow>
-
+            <form onSubmit={handleSubmit}>
               <MDBCol md='6'>
-                <MDBInput wrapperClass='mb-4' label='First Name' size='lg' id='form1' type='text'/>
+                <MDBInput
+                  wrapperClass='mb-4'
+                  label='First Name'
+                  size='lg'
+                  name='firstName'
+                  type='text'
+                  value={formData.firstName}
+                  onChange={handleInputChange}
+                />
+                <MDBInput
+                  wrapperClass='mb-4'
+                  label='Email'
+                  size='lg'
+                  name='email'
+                  type='email'
+                  value={formData.email}
+                  onChange={handleInputChange}
+                />
+
+                <MDBInput
+                  wrapperClass='mb-4'
+                 label='Set Password'
+                  size='lg'
+                  name='password'
+                  type='password'
+                  value={formData.password}
+                  onChange= {handleInputChange}
+                /> 
               </MDBCol>
-
-              <MDBCol md='6'>
-                <MDBInput wrapperClass='mb-4' label='Last Name' size='lg' id='form2' type='text'/>
-              </MDBCol>
-
-            </MDBRow>
-
-            <MDBRow>
-
-              <MDBCol md='6'>
-                <MDBInput wrapperClass='mb-4' label='Birthday' size='lg' id='form3' type='text'/>
-              </MDBCol>
-
-              <MDBCol md='6' className='mb-4'>
-                <h6 className="fw-bold">Gender: </h6>
-                <MDBRadio name='inlineRadio' id='inlineRadio1' value='option1' label='Female' inline />
-                <MDBRadio name='inlineRadio' id='inlineRadio2' value='option2' label='Male' inline />
-                <MDBRadio name='inlineRadio' id='inlineRadio3' value='option3' label='Other' inline />
-              </MDBCol>
-
-            </MDBRow>
-
-            <MDBRow>
-
-              <MDBCol md='6'>
-                <MDBInput wrapperClass='mb-4' label='Email' size='lg' id='form4' type='email'/>
-              </MDBCol>
-
-              <MDBCol md='6'>
-                <MDBInput wrapperClass='mb-4' label='Phone Number' size='lg' id='form5' type='rel'/>
-              </MDBCol>
-
-            </MDBRow>
-            <button className="btn btn-primary">SUBMIT</button>
-
+              
+              <MDBBtn type='submit' color='primary' onClick={() => navigate("/login")}>
+                SUBMIT
+              </MDBBtn>
+            </form>
           </MDBCardBody>
         </MDBCard>
-
       </MDBRow>
     </MDBContainer>
   );

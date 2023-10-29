@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchProducts } from "./api/main.js";
 import { CartContext } from "./cart.jsx";
 import { useContext } from "react";
-
+import Button from 'react-bootstrap/Button';
 
 
 const DisplayProducts = () => {
@@ -46,19 +46,24 @@ const DisplayProducts = () => {
 
     return (
       <div className="container">
-         <div className="overlay">
+      <div className="row">
         {products.map((product) => (
-          <div key={product.id}>
-            <img className="photo" src={product.image} alt={product.title} />
-            <h2 className="title">{product.title}</h2>
-            <h3 className="price">{product.price}</h3>
-            <button className="button" onClick={() => addToCart(product)}>Add To Cart</button>
+          <div key={product.id} className="col-12 col-sm-6 col-lg-3">
+            <div className="single_advisor_profile wow fadeInUp">
+              <div className="advisor_thumb">
+                <img className="photo" src={product.image} alt={product.title} />
+              </div>
+              <div className="single_advisor_details_info">
+                <h6>{product.title}</h6>
+                <p className="designation">{product.description}</p>
+                <button className="btn btn-primary" onClick={() => addToCart(item)}>Add To Cart</button>
+              </div>
+            </div>
           </div>
         ))}
       </div>
-      </div>
-       
-    );
+    </div>
+  ); 
 };
 
 export default DisplayProducts;

@@ -33,22 +33,36 @@ const Login = () => {
     };
 
     return (
-        <>
-        <h2 id="signIn"> Sign In </h2>
-        <form onSubmit={handleSubmit}>
-           <label value={username} onChange={(e) => setUsername(e.target.value)}>
-            username: <input/>
-           </label>
-           <label value={password} onChange={(e) => setPassword(e.target.value)}>
-            password: <input/>
-           </label>
-           <br></br>
-            {/*change to profile page later*/}
-           <button onClick={() => navigate("/profile")}>Log In</button>
+        <div className="Auth-form-container">
+        <form className="Auth-form">
+          <div className="Auth-form-content">
+            <h3 className="Auth-form-title">Sign In</h3>
+            <div className="form-group mt-3">
+              <label>Email address</label>
+              <input
+                type="email"
+                className="form-control mt-1"
+                placeholder="Enter email"
+              />
+            </div>
+            <div className="form-group mt-3">
+              <label>Password</label>
+              <input
+                type="password"
+                className="form-control mt-1"
+                placeholder="Enter password"
+              />
+            </div>
+            <div className="d-grid gap-2 mt-3">
+              <button type="submit" className="btn btn-primary" onClick={() => navigate("/")}>
+                Submit
+              </button>
+              <p>Not singed up with us?</p>
+              <button className="btn btn-primary" onClick={() => navigate("/sign-up")}>Sign Up</button>
+            </div>
+          </div>
         </form>
-        <button onClick={() => navigate("/sign-up")}>Sign Up</button>
-
-        </>
-    );
+      </div>
+    )
 };
 export default Login;

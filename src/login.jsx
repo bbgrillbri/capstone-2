@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"
 import { login } from "./api/main";
 
@@ -9,8 +9,30 @@ const Login = () => {
     const [password, setPassword] = useState(""); 
     const [error, setError] = useState(null);
     const navigate = useNavigate(); 
-    const token = localStorage.getItem("token");
-    console.log("LOGIN TOKEN", token);
+
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        // Redirect to the user page or another authenticated route
+        navigate("/");
+      }
+    }, [navigate]);
+
+    const checkPersistentLogin = () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        console.log("logged in ")
+      } else {
+        console.log("not logged in")
+      }
+    };
+    
+    // Call the function to check for persistent login when the component mounts
+    useEffect(() => {
+      checkPersistentLogin();
+    }, []);
+    
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -25,7 +47,7 @@ const Login = () => {
                 const result = await login(username, password); 
                 console.log("login", result);
                 localStorage.setItem("token", result.data.token)
-                navigate("/user");
+                navigate("/");
             } catch (error) {
                 setError(error.message);
             }

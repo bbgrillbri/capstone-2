@@ -2,20 +2,17 @@ import React, { useContext } from "react";
 import { CartContext } from "./cart.jsx";
 
 import {
-  MDBBtn,
   MDBCard,
   MDBCardImage,
   MDBCol,
   MDBContainer,
-  MDBIcon,
   MDBInput,
   MDBRow,
   MDBTypography,
 } from "mdb-react-ui-kit";
-import { Navigate } from "react-router-dom";
 
 const CartPage = () => {
-  const { cartItems, removeFromCart, clearCart, addToCart } = useContext(CartContext);
+  const { cartItems, removeFromCart, clearCart, getCartTotal} = useContext(CartContext);
 
   if (cartItems.length === 0) {
     return <p className="cartEmpty">Your cart is empty.</p>;
@@ -26,16 +23,23 @@ const CartPage = () => {
       <MDBContainer className="py-5 h-100">
         <MDBRow className="justify-content-center align-items-center h-100">
           <MDBCol size="12">
-            <MDBCard className="card-registration card-registration-2" style={{ borderRadius: "15px" }}>
+            <MDBCard className="card-registration card-registration-2" style={{ borderRadius: "20px" }}>
               <MDBRow className="mb-4 d-flex justify-content-between align-items-center">
                 {cartItems.map((item) => (
                   <MDBCol md="2" lg="2" xl="2" key={item.id}>
                     <MDBCardImage
-                      src={item.image}
+                      src ={item.image}
                       fluid
                       className="rounded-3"
-                      alt={item.title}
+                      alt={item.title}  
                     />
+                {cartItems.map((item) => (
+                  <MDBCol md="3" lg="3" xl="3" key={item.id} className="d-flex align-items-center">
+                 <MDBInput type="number" min="0" defaultValue={item.quantity} size="sm" />
+                    <button className="btn btn-primary" onClick={() => removeFromCart(item)}>Remove from cart</button>
+                  </MDBCol>
+                ))}
+
                   </MDBCol>
                 ))}
               </MDBRow>

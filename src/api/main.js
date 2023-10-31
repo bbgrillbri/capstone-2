@@ -59,62 +59,7 @@ fetchProducts()
   });
 
 
-//limit results 
 
-async function fetchLimitedProducts(limit) {
-    try {
-        const response = await fetch(`${BASE_URL}/products?limit=${limit}`, {
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-        if (!response.ok) {
-            throw new Error(`Failed to fetch products. Status: ${response.status}`);
-        }
-        const products = await response.json();
-        return products;
-    } catch (error) {
-        console.error("Error fetching products:", error);
-    }
-}
-//test
-fetchLimitedProducts(10)
-  .then(products => {
-    console.log("Products Data:", products);
-  })
-  .catch(error => {
-    console.error("Error:", error);
-  });
-
-
-
-//sort results 
-//fetch('https://fakestoreapi.com/products?sort=desc')
-async function sortProducts(sort) {
-    try {
-        const response = await fetch(`${BASE_URL}/products?sort=${sort}`, {
-          headers: {
-            "Content-Type": "application/json"
-          }  
-        });
-        if (!response.ok) {
-            throw new Error(`Faild to fetch products. Status: ${response.status}`);
-        }
-        const products = await response.json();
-        return products;
-    } catch (error) {
-        console.error("Error fetching products:", error);
-    }
-}
-
-// Test sorting products in descending order
-sortProducts("desc")
-  .then(products => {
-    console.log("Sorted Products (Descending):", products);
-  })
-  .catch(error => {
-    console.error("Error:", error);
-  });
 
 
 //all categories 
@@ -135,6 +80,22 @@ sortProducts("desc")
 
 //delete product 
 //fetch('https://fakestoreapi.com/products/6'
+export async function removeFromCart(cartId, itemId) {
+  try {
+    const response = await fetch(`${BASE_URL}/carts/${cartId}/items/${itemId}`, {
+      method: "DELETE",
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to remove item from cart. Status: ${response.status}`);
+    }
+    // No need to return anything on successful removal
+  } catch (error) {
+    console.error(`Error removing item from cart (cart ID: ${cartId}, item ID: ${itemId}):`, error);
+    throw error;
+  }
+}
+
+
 
 
 //get all carts 

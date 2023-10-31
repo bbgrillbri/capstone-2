@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { fetchProducts } from "./api/main.js";
 import { CartContext } from "./cart.jsx";
 import { useContext } from "react";
-import Button from 'react-bootstrap/Button';
 
 
 const DisplayProducts = () => {

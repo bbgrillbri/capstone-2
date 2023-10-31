@@ -34,7 +34,6 @@ fetchProducts()
     console.error("Error:", error);
   });
 
-
 //single product 
  async function fetchSingleProduct(productId) {
     try {
@@ -58,26 +57,6 @@ fetchProducts()
     console.error("Error:", error);
   });
 
-
-
-
-
-//all categories 
-//fetch('https://fakestoreapi.com/products/categories')
-
-
-//products in a specific category
-//fetch('https://fakestoreapi.com/products/category/jewelery')
-
-//add new product 
-//fetch('https://fakestoreapi.com/products'
-
-
-
-//update product
-//fetch('https://fakestoreapi.com/products/7',{
-
-
 //delete product 
 //fetch('https://fakestoreapi.com/products/6'
 export async function removeFromCart(cartId, itemId) {
@@ -88,15 +67,11 @@ export async function removeFromCart(cartId, itemId) {
     if (!response.ok) {
       throw new Error(`Failed to remove item from cart. Status: ${response.status}`);
     }
-    // No need to return anything on successful removal
   } catch (error) {
     console.error(`Error removing item from cart (cart ID: ${cartId}, item ID: ${itemId}):`, error);
     throw error;
   }
 }
-
-
-
 
 //get all carts 
 export async function getAllCarts() {
@@ -149,6 +124,7 @@ export async function createCart(newCartData) {
     throw error;
   }
 }
+
 //update existing cart 
 export async function updateCart(cartId, updatedCartData) {
   try {
@@ -169,6 +145,7 @@ export async function updateCart(cartId, updatedCartData) {
     throw error;
   }
 }
+
 //delete a cart 
 //fetch('https://fakestoreapi.com/carts/6',{
   export async function deleteCartById(cartId) {
@@ -185,10 +162,6 @@ export async function updateCart(cartId, updatedCartData) {
       throw error;
     }
   }
-
-//get all users 
-//fetch('https://fakestoreapi.com/users')
-
 
 //get single user 
 export const myData = async () => {
@@ -207,14 +180,6 @@ export const myData = async () => {
       console.error(err);
     }
   };  
-
-//limit user results 
-//fetch('https://fakestoreapi.com/users?limit=5')
-
-
-//sort user results 
-//fetch('https://fakestoreapi.com/users?sort=desc')
-
 
 //add new user 
 export const registerUser = async (username, password) => {
@@ -238,14 +203,6 @@ export const registerUser = async (username, password) => {
     console.error(err);
   }
 };       
-
-//update user 
-//fetch('https://fakestoreapi.com/users/7',{
-
-
-//delete a user 
-//fetch('https://fakestoreapi.com/users/6',{
-
 
 //user login 
 export const login = async (username, password) => {

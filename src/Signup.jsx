@@ -11,7 +11,7 @@ import {
 from 'mdb-react-ui-kit';
 
 import { useNavigate } from 'react-router-dom';
-import Login from './login';
+import Login from './Login';
 
 
 function Signup() {

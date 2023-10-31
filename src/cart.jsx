@@ -1,4 +1,3 @@
-
 import { createContext, useState, useEffect } from 'react'
 
 export const CartContext = createContext()
@@ -40,9 +39,26 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-
-  
-  
+  const updateCart = (item, amount) => {
+    // Check if the item is in the cart
+    const isItemInCart = cartItems.find((cartItem) => cartItem.id === item.id);
+    
+    if (isItemInCart) {
+      if (isItemInCart.quantity + amount === 0) {
+        // If the updated quantity would be zero, remove the item from the cart
+        setCartItems(cartItems.filter((cartItem) => cartItem.id !== item.id));
+      } else {
+        // Update the quantity by the specified amount
+        setCartItems(
+          cartItems.map((cartItem) =>
+            cartItem.id === item.id
+              ? { ...cartItem, quantity: cartItem.quantity + amount }
+              : cartItem
+          )
+        );
+      }
+    }
+  };
 
   const clearCart = () => {
     setCartItems([]);
@@ -71,6 +87,7 @@ export const CartProvider = ({ children }) => {
         removeFromCart,
         clearCart,
         getCartTotal,
+        updateCart
       }}
     >
       {children}

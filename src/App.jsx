@@ -1,4 +1,4 @@
-import Login from "./login.jsx";
+import Login from "./Login.jsx";
 import Signup from "./Signup";
 import ProductsPage from "./ProductsPage.jsx";
 import { Routes, Route } from "react-router-dom";
@@ -6,7 +6,7 @@ import Header from "./header.jsx";
 import { useEffect, useState } from "react";
 import { fetchProducts } from "./api/main.js";
 import CartPage from "./cartPage.jsx";
-import { CartProvider } from "./cart.jsx";
+
 
 
 export default function App() {

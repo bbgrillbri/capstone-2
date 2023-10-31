@@ -1,82 +1,69 @@
 import React, { useContext } from "react";
-import { CartContext } from "./cart.jsx";
-
+import { CartContext } from "./Cart.jsx";
 import {
   MDBCard,
   MDBCardImage,
   MDBCol,
   MDBContainer,
-  MDBInput,
   MDBRow,
   MDBTypography,
 } from "mdb-react-ui-kit";
 
+
 const CartPage = () => {
-  const { cartItems, removeFromCart, clearCart, getCartTotal} = useContext(CartContext);
+  const { cartItems, removeFromCart, clearCart, getCartTotal, updateCart } = useContext(CartContext);
+
+  const handleClearCartWithAlert = () => {
+    clearCart(); 
+    window.alert('Thanks for your purchase!');
+  };
 
   if (cartItems.length === 0) {
     return <p className="cartEmpty">Your cart is empty.</p>;
   }
 
   return (
-    <section className="h-100 h-custom" style={{ backgroundColor: "#eee" }}>
-      <MDBContainer className="py-5 h-100">
-        <MDBRow className="justify-content-center align-items-center h-100">
-          <MDBCol size="12">
-            <MDBCard className="card-registration card-registration-2" style={{ borderRadius: "20px" }}>
-              <MDBRow className="mb-4 d-flex justify-content-between align-items-center">
-                {cartItems.map((item) => (
-                  <MDBCol md="2" lg="2" xl="2" key={item.id}>
-                    <MDBCardImage
-                      src ={item.image}
-                      fluid
-                      className="rounded-3"
-                      alt={item.title}  
-                    />
-                {cartItems.map((item) => (
-                  <MDBCol md="3" lg="3" xl="3" key={item.id} className="d-flex align-items-center">
-                 <MDBInput type="number" min="0" defaultValue={item.quantity} size="sm" />
-                    <button className="btn btn-primary" onClick={() => removeFromCart(item)}>Remove from cart</button>
-                  </MDBCol>
-                ))}
-
-                  </MDBCol>
-                ))}
-              </MDBRow>
-              <MDBRow className="mb-4 d-flex justify-content-between align-items-center">
-                {cartItems.map((item) => (
-                  <MDBCol md="3" lg="3" xl="3" key={item.id}>
-                    <MDBTypography tag="h6" className="text-muted">
-                      {item.category}
-                    </MDBTypography>
-                    <MDBTypography tag="h6" className="text-black mb-0">
-                      {item.title}
-                    </MDBTypography>
-                  </MDBCol>
-                ))}
-              </MDBRow>
-              <MDBRow className="mb-4 d-flex justify-content-between align-items-center">
-                {cartItems.map((item) => (
-                  <MDBCol md="3" lg="3" xl="3" key={item.id} className="d-flex align-items-center">
-                    <MDBInput type="number" min="0" defaultValue={item.quantity} size="sm" />
-                  </MDBCol>
-                ))}
-              </MDBRow>
-              <hr className="my-4" />
-              <div className="pt-5">
-                <MDBTypography tag="h6" className="mb-0">
-                  <a href="#!" className="text-body">
-                  </a>
-                  <button className="btn btn-primary" onClick={clearCart}>Clear Cart</button>
-                </MDBTypography>
-              </div>
-            </MDBCard>
-          </MDBCol>
+    <section className="cart-container">
+      <MDBContainer>
+        <MDBRow className="item-cards-container">
+          {cartItems.map((item) => (
+            <MDBCol key={item.id}>
+              <MDBCard className="item-card">
+              <div className="item-content">
+              <MDBCardImage src={item.image} fluid alt={item.title} className="item-image" />
+              <div className="item-details">
+              <MDBTypography tag="h6">{item.category}</MDBTypography>
+              <MDBTypography tag="h6">{item.title}</MDBTypography>
+              <MDBTypography>${item.price.toFixed(2)}</MDBTypography>
+            </div>
+            </div> 
+               <span>{item.quantity}</span>
+                 <button className="btn btn-primary" onClick={() => updateCart(item, -1)} >-</button>
+                 <button className="btn btn-primary" onClick={() => updateCart(item, 1)} >+</button>
+                <button className="btn btn-primary" onClick={() => removeFromCart(item)}>Remove</button>
+              </MDBCard>
+            </MDBCol>
+          ))}
         </MDBRow>
+        <hr />
+        <div>
+        <MDBTypography tag="h6">
+            Total Price: ${getCartTotal().toFixed(2)}
+          </MDBTypography>
+          <MDBTypography tag="h6">
+            <button className="btn btn-primary" onClick={clearCart}>
+              Clear Cart
+            </button>
+          </MDBTypography>
+          <MDBTypography tag="h6">
+            <button className="btn btn-primary" onClick={handleClearCartWithAlert}>
+             Check Out
+            </button>
+          </MDBTypography>
+        </div>
       </MDBContainer>
     </section>
   );
 };
 
 export default CartPage;
-

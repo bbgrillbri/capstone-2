@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import React from "react";
-import { Rectangle, ShoppingBag } from "phosphor-react";
+import { ShoppingBag } from "phosphor-react";
 import { ShoppingCart } from "phosphor-react"
 import { UserRectangle } from "phosphor-react"
 import "./app.css"

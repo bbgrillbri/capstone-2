@@ -56,6 +56,7 @@ const DisplayProducts = () => {
               <div className="single_advisor_details_info">
                 <h6>{product.title}</h6>
                 <p className="designation">{product.description}</p>
+                <p>{product.price}</p>
                 <button className="btn btn-primary" onClick={() => addToCart(product)}>Add To Cart</button>
               </div>
             </div>
